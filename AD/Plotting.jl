@@ -1,4 +1,4 @@
-using GLMakie
+#using GLMakie #comment if you GLMakie is not compatible with your system
 include("supporting_functions.jl")
 
 function reconstruction(N, w_p, x, x_p, eps)

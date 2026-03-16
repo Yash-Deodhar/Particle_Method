@@ -1,14 +1,10 @@
-#= Code to solve the 1D heat equation using the paticle method 
-with an energy-dissipative and mass conservative scheme =#
-# Code written by Yash Deodhar, Plotting code written by Gemini #
-
 using LinearAlgebra
-using GLMakie
+#using GLMakie #comment if you GLMakie is not compatible with your system
 include("supporting_functions.jl")
 include("FP_Solvers.jl")
 include("Plotting.jl")
 
-function Simulation(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 0.01, tol = 1e-15,  m = 0.0, win_size = 1, beta = 1.0, plots = false)
+function Simulation_AD(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 0.01, tol = 1e-15,  m = 0.0, win_size = 1, beta = 1.0, plots = false)
 
     true_sol, RHS = Equation_lookup[Eqn]
 
@@ -17,7 +13,6 @@ function Simulation(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 
     dx = 2*L/N  # Mesh/Cell width
     eps = 4*(0.4*(dx)^0.99)^2   # Regularization parameter
     x = collect((-L + dx/2):dx:(L - dx/2))  # function evaluation points
-    n_steps = round(Int,(t_f - t_0)/dt) # number of time steps
 
 
     # Calculate intial particle positions and weights
@@ -27,6 +22,7 @@ function Simulation(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 
     w_p = dx .* f_initial # calculate paricle weights from intial condition
 
     # Set up plot and plot initial data
+
     f = reconstruction(N, w_p, x, x_p, eps)
     if plots
         time_obs, f_obs, true_sol_obs = initialze_plot(Eqn, FP_Solver, true_sol, t_0, f, x, m)
@@ -36,11 +32,13 @@ function Simulation(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 
     # Define Loop parameters and history variables
 
     max_iter = 100
+    n_steps = round(Int,(t_f - t_0)/dt) # number of time steps
     Iter_history = zeros(n_steps)
     error_history = zeros(n_steps+1)
-    error_history[1] = norm(true_sol(t_0, x, m) .- f, 2)
+    error_history[1] = norm(f_initial .- f, 2)
 
-    # Call main loop function to run simulation
+    
+    # Main loop
 
     for n in 1:n_steps
 
