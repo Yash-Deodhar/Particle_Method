@@ -1,4 +1,4 @@
-include("supporting_functions.jl")  
+include("supporting_functions_Landau.jl")  
 
 
 function FPI(RHS, max_iter, Vx_new, Vy_new, w_p, Vx_prev, Vy_prev, Vx_cc, Vy_cc, dv, eps, N_total, dt, tol, gamma, win_size, beta)

@@ -1,12 +1,12 @@
 using LinearAlgebra
 #using GLMakie #comment if you GLMakie is not compatible with your system
-include("supporting_functions.jl")
-include("FP_Solvers.jl")
-include("Plotting.jl")
+include("supporting_functions_AD.jl")
+include("FP_Solvers_AD.jl")
+include("Plotting_AD.jl")
 
 function Simulation_AD(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt = 0.01, tol = 1e-15,  m = 0.0, win_size = 1, beta = 1.0, plots = false)
 
-    true_sol, RHS = Equation_lookup[Eqn]
+    true_sol, RHS = Equation_lookup_AD[Eqn]
 
     # Define important constants and mesh #
 

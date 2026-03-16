@@ -1,5 +1,5 @@
 #using GLMakie #comment if you GLMakie is not compatible with your system
-include("supporting_functions.jl")
+include("supporting_functions_AD.jl")
 
 function reconstruction(N, w_p, x, x_p, eps)
     f = zeros(N)

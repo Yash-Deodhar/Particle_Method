@@ -1,8 +1,8 @@
 using LinearAlgebra
 #using GLMakie #comment if you GLMakie is not compatible with your system
-include("supporting_functions.jl")
-include("FP_Solvers.jl")
-include("Plotting.jl")
+include("supporting_functions_Landau.jl")
+include("FP_Solvers_Landau.jl")
+include("Plotting_Landau.jl")
 
 function Simulation_Landau(Eqn, FP_Solver; N = 20, L = 4, t_0 = 0.0, t_f = 5.0, dt = 0.02, tol = 1e-15, win_size = 1, beta = 1.0, plots = false)
     

@@ -1,4 +1,4 @@
-include("supporting_functions.jl")  
+include("supporting_functions_AD.jl")  
 
 
 function FPI(RHS, max_iter, x_p_new, w_p, x_p, x, dx, eps, N, dt, tol, m, win_size, beta)

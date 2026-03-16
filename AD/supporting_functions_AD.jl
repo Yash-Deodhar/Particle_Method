@@ -177,7 +177,7 @@ function RHS_PorousMedium(w, x_prev_t, x_curr_itr, x_cc, dx, eps, n, m)
 end
 
 
-Equation_lookup = Dict(
+Equation_lookup_AD = Dict(
     "Heat"     => (true_sol_heat, RHS_Heat),
     "LinearFokker" => (true_sol_fokker, RHS_LinearFokker),
     "NLFokker" => (true_sol_fokker, RHS_NLFokker),
