@@ -17,8 +17,8 @@ AA_iter_hist_porous, AA_error_hist_porous, AA_energy_hist_porous, params_porous 
 FPI_iter_hist_porous, FPI_error_hist_porous, FPI_energy_hist_porous, params_porous = Simulation_AD("PorousMedium", FPI, L = 8, m = 3/2)
 save_plots_AD("PorousMedium", AA_iter_hist_porous, AA_error_hist_porous, AA_energy_hist_porous, FPI_iter_hist_porous, FPI_error_hist_porous, FPI_energy_hist_porous, params_porous...)
 
-AA_iter_hist_lf, AA_error_hist_lf, AA_energy_hist_lf, params_lf = Simulation_AD("LinearFokker", AA, L = 5, t_0 = 0.5, t_f = 1.0, win_size = 3, beta = 0.95); 
-FPI_iter_hist_lf, FPI_error_hist_lf, FPI_energy_hist_lf, params_lf = Simulation_AD("LinearFokker", FPI, L = 5, t_0 = 0.5, t_f = 1.0)
+AA_iter_hist_lf, AA_error_hist_lf, AA_energy_hist_lf, params_lf = Simulation_AD("LinearFokker", AA, L = 5, t_0 = 0.5, t_f = 1.0, dt = 0.001, win_size = 3, beta = 0.95); 
+FPI_iter_hist_lf, FPI_error_hist_lf, FPI_energy_hist_lf, params_lf = Simulation_AD("LinearFokker", FPI, L = 5, t_0 = 0.5, t_f = 1.0, dt = 0.001)
 save_plots_AD("LinearFokker", AA_iter_hist_lf, AA_error_hist_lf, AA_energy_hist_lf, FPI_iter_hist_lf, FPI_error_hist_lf, FPI_energy_hist_lf, params_lf...)
 
 AA_iter_hist_nlf, AA_error_hist_nlf, AA_energy_hist_nlf, params_nlf = Simulation_AD("NLFokker", AA, L = 5, t_0 = 0.5, t_f = 1.0, dt = 0.001, win_size = 3, beta = 0.95); 
