@@ -1,4 +1,6 @@
 #using GLMakie #comment if you GLMakie is not compatible with your system
+using CairoMakie
+using FileIO
 include("supporting_functions_AD.jl")
 
 function reconstruction(N, w_p, x, x_p, eps)
@@ -30,3 +32,19 @@ function update_plot(true_sol, time_obs, f_obs, true_sol_obs, t, f, x, m)
     yield()
 end
 
+function save_plots_AD(eqn_name, AA_iter, AA_error, AA_energy, FPI_iter, FPI_error, FPI_energy, N, L, t_0, t_f, dt, win_size, beta)
+    
+    folder = joinpath("Figures", eqn_name, "Plots")
+    base_AA  = @sprintf("N%d_L%d_t0%g_tf%g_dt%g_w%d_b%.2e", N, L, t_0, t_f, dt, win_size, beta)
+    t_axis = collect(range(t_0, t_f, length=round(Int,(t_f-t_0)/dt)))
+    quantities = [("iter_hist",   AA_iter,   FPI_iter,   "Iteration Count"), ("error_hist",  AA_error,  FPI_error,  "Error"), ("energy_hist", AA_energy, FPI_energy, "Energy")]
+
+    for (fname, AA_data, FPI_data, ylabel_text) in quantities
+        fig = Figure(size = (900, 600))
+        ax = Axis(fig[1, 1], title = "$(eqn_name): AA vs FPI $(replace(fname, "_" => " "))", xlabel = "Time", ylabel = ylabel_text)
+        lines!(ax, t_axis, AA_data, label = "AA", linewidth = 2)
+        lines!(ax, t_axis, FPI_data, label = "FPI", linewidth = 2)
+        axislegend(ax, position = :rb)
+        save(joinpath(folder, "$(fname)_$(base_AA).png"), fig)
+    end
+end

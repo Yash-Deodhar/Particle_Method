@@ -13,6 +13,19 @@ true_sol_heat(t,x,m) = 1/sqrt(4*pi*t) .* exp.(- (x .^ 2) ./ (4*t))
 true_sol_fokker(t,x,m) = (2*pi*(1-exp(-2*t)))^(-0.5) .* exp.( - (x .^ 2) ./ (2*(1-exp(-2*t))))
 true_sol_porous(t, x, m) = (1 ./ t .^ (1/(m+1))) .* (max.(0, 1 .- (m-1)/(2*m*(m+1)) .* (x.^2 ./ t .^ (2/(m+1)))) .^ (1/(m-1)))
 
+# Define energy functions
+
+energy_heat(f, w, x, x_p, dx, m) = dx*sum(f .* log.(f))
+energy_porous(f, w, x, x_p, dx, m) = dx*sum(f .* log.(f))
+energy_linear_fokker(f, w, x, x_p, dx, m) = dx*sum(f .* log.(f)) + 0.5*sum(w .* x_p.^2)
+function energy_nl_fokker(f, w, x, x_p, dx, m)
+    W_term = zeros(length(x_p))
+    for i in 1:length(x_p)
+        W_term[i] = sum(0.5*w .* (x_p[i] .- x_p).^2)
+    end
+    return dx*(sum(f .* log.(f)) + 0.5*sum(w .* W_term))
+end
+
 
 # Define functions for calculating right hand side
 
@@ -178,8 +191,8 @@ end
 
 
 Equation_lookup_AD = Dict(
-    "Heat"     => (true_sol_heat, RHS_Heat),
-    "LinearFokker" => (true_sol_fokker, RHS_LinearFokker),
-    "NLFokker" => (true_sol_fokker, RHS_NLFokker),
-    "PorousMedium" => (true_sol_porous, RHS_PorousMedium)
+    "Heat"     => (true_sol_heat, RHS_Heat, energy_heat),
+    "LinearFokker" => (true_sol_fokker, RHS_LinearFokker, energy_linear_fokker),
+    "NLFokker" => (true_sol_fokker, RHS_NLFokker, energy_nl_fokker),
+    "PorousMedium" => (true_sol_porous, RHS_PorousMedium, energy_porous)
 )
