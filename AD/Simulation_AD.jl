@@ -68,7 +68,7 @@ function Simulation_AD(Eqn, FP_Solver; N = 100, L = 15, t_0 = 2.0, t_f = 3.0, dt
 
     suffix = nameof(FP_Solver) == :FPI ? "" : @sprintf("_w%d_b%.2e", win_size, beta)
     filename = @sprintf("%s_N%d_L%d_t0%g_tf%g_dt%g", nameof(FP_Solver), N, L, t_0, t_f, dt) * suffix * ".mat"
-    filepath = joinpath("Figures", Eqn, "Data", filename)
+    filepath = joinpath("Figures and Data", Eqn, "Data", filename)
     matwrite(filepath, Dict("Iter_history"   => Iter_history, "error_history"  => error_history, "energy_history" => energy_history))
     params = (N, L, t_0, t_f, dt, win_size, beta)
 

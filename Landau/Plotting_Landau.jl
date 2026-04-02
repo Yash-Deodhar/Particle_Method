@@ -38,7 +38,7 @@ end
 
 function save_plots_Landau(eqn_name, AA_iter, AA_error, AA_mom_x, AA_mom_y, AA_KE, AA_energy, AA_fisher, AA_diss, FPI_iter, FPI_error, FPI_mom_x, FPI_mom_y, FPI_KE, FPI_energy, FPI_fisher, FPI_diss, N, L, t_0, t_f, dt, win_size, beta)
     
-    folder = joinpath("Figures", eqn_name, "Plots")
+    folder = joinpath("Figures and Data", eqn_name, "Plots")
     base_AA = @sprintf("N%d_L%d_t0%g_tf%g_dt%g_w%d_b%.2e", N, L, t_0, t_f, dt, win_size, beta)
     t_axis = collect(range(t_0, t_f, length=round(Int,(t_f-t_0)/dt)))
 

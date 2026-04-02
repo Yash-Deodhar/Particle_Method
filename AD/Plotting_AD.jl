@@ -34,7 +34,7 @@ end
 
 function save_plots_AD(eqn_name, AA_iter, AA_error, AA_energy, FPI_iter, FPI_error, FPI_energy, N, L, t_0, t_f, dt, win_size, beta)
     
-    folder = joinpath("Figures", eqn_name, "Plots")
+    folder = joinpath("Figures and Data", eqn_name, "Plots")
     base_AA  = @sprintf("N%d_L%d_t0%g_tf%g_dt%g_w%d_b%.2e", N, L, t_0, t_f, dt, win_size, beta)
     t_axis = collect(range(t_0, t_f, length=round(Int,(t_f-t_0)/dt)))
     quantities = [("iter_hist",   AA_iter,   FPI_iter,   "Iteration Count"), ("error_hist",  AA_error,  FPI_error,  "Error"), ("energy_hist", AA_energy, FPI_energy, "Energy")]

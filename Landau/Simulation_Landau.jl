@@ -96,7 +96,7 @@ function Simulation_Landau(Eqn, FP_Solver; N = 40, L = 4, t_0 = 0.0, t_f = 5.0, 
 
     suffix = nameof(FP_Solver) == :FPI ? "" : @sprintf("_w%d_b%.2e", win_size, beta)
     filename = @sprintf("%s_N%d_L%d_t0%g_tf%g_dt%g", nameof(FP_Solver), N, L, t_0, t_f, dt) * suffix * ".mat"
-    filepath = joinpath("Figures", Eqn, "Data", filename)
+    filepath = joinpath("Figures and Data", Eqn, "Data", filename)
     matwrite(filepath, Dict("Iter_history" => Iter_history, "error_history" => error_history, "Mom_x_history" => Mom_x_history, "Mom_y_history" => Mom_y_history, "KE_history" => KE_history, "Energy_history" => Energy_history, "Fisher_history" => Fisher_history, "Dissipation_history" => Dissipation_history))
     params = (N, L, t_0, t_f, dt, win_size, beta)
     
